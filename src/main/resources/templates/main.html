@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tweets</title>
+</head>
+<body style="background-color: #000000; color: #FFFFFF; font-family:'Courier New'">
+<div id="container">
+    <h2>Welcome to Tweets, @<span th:text="${tweeterName}"></span> !</h2>
+
+    <hr>
+
+    <table style="width: 50%;">
+        <tbody>
+        <tr>
+            <td><h3><a th:href="@{otherTweets}" style="color: #FFFFFF;"> | Tweets </a></h3></td>
+            <td><h3><a th:href="@{myTweets}" style="color: #FFFFFF;"> | My Tweets </a></h3></td>
+            <td><h3><a th:href="@{createTweets}" style="color: #FFFFFF;"> | Create Tweets </a></h3></td>
+            <td><h3><a th:href="@{logout}" style="color: #FFFFFF;">| Logout </a></h3></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <table style="width: 50%;">
+        <tbody>
+        <tr th:if="${tweetsList ne null && tweetsList.empty}">
+            <td colspan="2"> No Tweets</td>
+        </tr>
+        <tr th:each="tweet : ${tweetsList}">
+            <td>@<span style="font-size:100%;" th:text="${tweet.userDto.username}"></span>
+                <span style="color:gray; font-size: 100%;" th:text="${tweet.createdDate}"></span>
+                <br>
+                <span style="font-size: 100%;" th:text="${tweet.tweets}"></span>
+                <br>
+                <br>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form th:if="${isCreateOn}" th:action="@{createTweets}" th:object="${tweetsDto}" method="post">
+        <label for="tweets">Tweet</label>
+        <input th:field="*{tweets}" type="text" id="tweets" name="tweets" autofocus="autofocus"/>
+        <input id="submit" type="submit" value="Tweet"/>
+        <br>
+        <br>
+        <td th:if="${tweetError}">Hold up! Either your tweets too long (max 165) or you're tweeting blank spaces. Please try again.</td>
+    </form>
+
+</div>
+</body>
+</html>

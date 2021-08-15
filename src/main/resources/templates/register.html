@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+</head>
+<body style="background-color: #000000; color: #FFFFFF; font-family:'Courier New'">
+<div id="container">
+    <h2>Register</h2>
+    <form th:action="@{register}" th:object="${userDto}" method="post">
+        <label for="username">Username</label>
+        <input th:field="*{username}" type="text" id="username" name="username" autofocus="autofocus" />
+        <label for="password">Password</label>
+        <input th:field="*{password}" type="password" id="password" name="password" />
+        <input id="submit" type="submit" value="Register" />
+        <br>
+        <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
+        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</td>
+    </form>
+
+    <p th:if="${registerError}" class="error">Username already exists. Please use a different username.</p>
+</div>
+</body>
+</html>
