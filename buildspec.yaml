@@ -11,5 +11,6 @@ phases:
     commands:
       - echo "onto post_build phase..."
 artifacts:
+  type: zip
   files:
     - 'build/libs/*.jar'
