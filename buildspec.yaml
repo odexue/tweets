@@ -10,6 +10,7 @@ phases:
   post_build:
     commands:
       - echo "onto post_build phase..."
+      - mv build/libs ./
 artifacts:
   files:
     - 'build/libs/*.jar'
