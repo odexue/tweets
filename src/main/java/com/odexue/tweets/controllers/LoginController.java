@@ -9,22 +9,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
+    public static final String LOGIN_VIEW = "login.html";
+    public static final String LOGIN_ERROR_ATTR = "loginError";
 
     @GetMapping("signIn")
     public String login() {
-        return "login.html";
+        return LOGIN_VIEW;
     }
 
     @GetMapping("signInError")
     public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-        return "login.html";
+        model.addAttribute(LOGIN_ERROR_ATTR, true);
+        return LOGIN_VIEW;
     }
 
-    @GetMapping("logout")
-    public String logout() {
-        return "login.html";
-    }
+//    @GetMapping("logout")
+//    public String logout() {
+//        return "login.html";
+//    }
 
 
 }
