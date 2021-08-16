@@ -2,14 +2,14 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo "on to pre_build phase..."
+      - echo "starting pre_build phase..."
   build:
     commands:
-      - echo "onto build phase..."
+      - echo "starting build phase..."
       - ./gradlew clean test bootJar
   post_build:
     commands:
-      - echo "onto post_build phase..."
+      - echo "starting post_build phase and renaming to tweets.jar ..."
       - mv build/libs/*.jar tweets.jar
 artifacts:
   type: zip
