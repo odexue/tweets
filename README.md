@@ -46,7 +46,7 @@ prod - http://tweetsodexue-env-prod.us-east-2.elasticbeanstalk.com/tweets
 
 ~ code coverage jacoco report viewable on `AWS CodeBuild`
 
-![](images/code-coverage-report-aws-codebuild.jpg)
+![](images/tweets-code-coverage-report.jpg)
 
 ## logs.
 `AWS CloudWatch`
