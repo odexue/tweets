@@ -26,6 +26,12 @@ public class TweetsController {
     @Autowired
     private TweetsService tweetsService;
 
+    public static final String MAIN_VIEW = "main.html";
+    public static final String TWEETER_ATTR = "tweeterName";
+    public static final String TWEETS_LIST_ATTR = "tweetsList";
+    public static final String CREATE_ON_ATTR = "isCreateOn";
+    public static final String TWEET_ERR_ATTR = "tweetError";
+
 
     @GetMapping("/")
     public String redirect() {
@@ -35,7 +41,7 @@ public class TweetsController {
     @GetMapping("tweets")
     public String mainPage(Model model, TweetsDto tweetsDto) {
         String tweeter = authService.getCurrentUsername();
-        model.addAttribute("tweeterName", tweeter);
+        model.addAttribute(TWEETER_ATTR, tweeter);
         return "main.html";
     }
 
@@ -45,7 +51,7 @@ public class TweetsController {
         UserDto userDto = new UserDto();
         userDto.setUsername(currentUser);
         var tweets = tweetsService.showAllTweetsExceptByUser(userDto);
-        model.addAttribute("tweetsList", tweets);
+        model.addAttribute(TWEETS_LIST_ATTR, tweets);
         return "forward:/tweets";
     }
 
@@ -55,20 +61,20 @@ public class TweetsController {
         var userDto = new UserDto();
         userDto.setUsername(currentUser);
         var tweets = tweetsService.showAllTweetsByUser(userDto);
-        model.addAttribute("tweetsList", tweets);
+        model.addAttribute(TWEETS_LIST_ATTR, tweets);
         return "forward:/tweets";
     }
 
     @GetMapping("createTweets")
     public String createTweetsForm(TweetsDto tweetsDto, Model model) {
-        model.addAttribute("isCreateOn", true);
+        model.addAttribute(CREATE_ON_ATTR, true);
         return "forward:/tweets";
     }
 
     @GetMapping("createTweetsError")
     public String createTweetsError(TweetsDto tweetsDto, Model model, BindingResult bindingResult) {
-        model.addAttribute("isCreateOn", true);
-        model.addAttribute("tweetError", true);
+        model.addAttribute(CREATE_ON_ATTR, true);
+        model.addAttribute(TWEET_ERR_ATTR, true);
         return "forward:/tweets";
     }
 

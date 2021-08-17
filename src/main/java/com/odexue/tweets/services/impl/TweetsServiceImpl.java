@@ -30,7 +30,6 @@ public class TweetsServiceImpl implements TweetsService {
     private UserRepository userRepository;
 
 
-    // TODO : this can be cached. can use @Cacheable from spring
     @Override
     public List<TweetsDto> showAllTweets() {
         log.info("Retrieving all tweets");
@@ -38,7 +37,6 @@ public class TweetsServiceImpl implements TweetsService {
         return createDtoList(tweetsFromDb);
     }
 
-    // TODO : this can be cached. can use @Cacheable from spring
     @Override
     public List<TweetsDto> showAllTweetsByUser(UserDto userDto) {
         if (!isValid(userDto)) {
@@ -55,7 +53,6 @@ public class TweetsServiceImpl implements TweetsService {
         }
     }
 
-    // TODO : this can be cached. can use @Cacheable from spring
     @Override
     public List<TweetsDto> showAllTweetsExceptByUser(UserDto userDto) {
         if (!isValid(userDto)) {

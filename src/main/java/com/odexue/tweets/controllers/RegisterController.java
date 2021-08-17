@@ -18,13 +18,13 @@ import javax.validation.Valid;
 @Controller
 public class RegisterController {
 
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
     public static final String REGISTER_VIEW = "register.html";
     public static final String REGISTER_ERR_MSG_ATTR = "registerErrorMessage";
     public static final String REGISTER_ERROR_MSG = "Username already exists. Please use a different username.";
     public static final String REGISTER_ERROR_ATTR = "registerError";
-
-    @Autowired
-    private UserServiceImpl userServiceImpl;
 
 
     @GetMapping("register")

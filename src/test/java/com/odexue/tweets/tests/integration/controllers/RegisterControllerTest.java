@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -26,12 +25,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class RegisterControllerTest {
 
-    private final String REGISTER = "/register";
-    private final String REGISTER_ERROR = "/registerError";
-
     @Autowired
     private MockMvc mvc;
 
+    private final String REGISTER = "/register";
+    private final String REGISTER_ERROR = "/registerError";
+    private final String USER_DTO_ATTR = "userDto";
+    private final String SIGN_IN_PATH = "/signIn";
 
 
     @Test
@@ -47,7 +47,7 @@ public class RegisterControllerTest {
                         .param("username", maxUsernamePassChars)
                         .param("password", "pass"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeHasErrors("userDto"))
+                .andExpect(model().attributeHasErrors(USER_DTO_ATTR))
                 .andExpect(view().name(RegisterController.REGISTER_VIEW));
 
         mvc.perform(post(REGISTER)
@@ -56,7 +56,7 @@ public class RegisterControllerTest {
                         .param("username", "user")
                         .param("password", maxUsernamePassChars))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeHasErrors("userDto"))
+                .andExpect(model().attributeHasErrors(USER_DTO_ATTR))
                 .andExpect(view().name(RegisterController.REGISTER_VIEW));
     }
 
@@ -68,7 +68,7 @@ public class RegisterControllerTest {
                         .param("username", " ")
                         .param("password", "pass"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeHasErrors("userDto"))
+                .andExpect(model().attributeHasErrors(USER_DTO_ATTR))
                 .andExpect(view().name(RegisterController.REGISTER_VIEW));
     }
 
@@ -81,7 +81,7 @@ public class RegisterControllerTest {
                         .param("username", nullUsernameAndPassword)
                         .param("password", nullUsernameAndPassword))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeHasErrors("userDto"))
+                .andExpect(model().attributeHasErrors(USER_DTO_ATTR))
                 .andExpect(view().name(RegisterController.REGISTER_VIEW));
     }
 
@@ -94,7 +94,7 @@ public class RegisterControllerTest {
                         .param("username", existingUser)
                         .param("password", "pass"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/registerError"));
+                .andExpect(redirectedUrl(REGISTER_ERROR));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class RegisterControllerTest {
                         .param("username", existingUser)
                         .param("password", "pass"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/registerError"));
+                .andExpect(redirectedUrl(REGISTER_ERROR));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class RegisterControllerTest {
                         .param("username", newUser)
                         .param("password", "pass"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/signIn"));
+                .andExpect(redirectedUrl(SIGN_IN_PATH));
     }
 
     @Test
