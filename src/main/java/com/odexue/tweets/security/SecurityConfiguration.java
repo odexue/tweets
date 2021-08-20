@@ -17,7 +17,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static String LOGIN_PATH = "/signIn";
     private static String LOGIN_ERROR_PATH = "/signInError";
     private static String TWEETS_PATH = "/tweets";
-    private static String ACTUATOR_PATH = "/actuator/**";
+    private static String ACTUATOR_PATH = "/actuator/health";
     private static String LOGOUT_PATH = "/logout";
 
 
